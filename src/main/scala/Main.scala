@@ -2,6 +2,7 @@ package com.keywordr
 
 object Main {
   def main(args: Array[String]): Unit = {
-    println("Hello world!")
+    // initialize and validate configuration
+    ConfigurationInitializationProcess.execute()
   }
 }
