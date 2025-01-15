@@ -1,12 +1,22 @@
 package com.keywordr
 package process.impl
 
+import process.api.ExecutionPlan
+
+import com.keywordr.provider.ConfigurationProvider
+
 object ConfigurationInitializationProcess extends ExecutionPlan[Boolean] {
-  override def initialize(initializer: Map[String, String]): Unit {}
 
   override def execute(): Boolean = {
-    List[String] validationMessages = ConfigurationProvider.initialize()
+    val validationMessages: List[String] = ConfigurationProvider.initialize().flatten
 
-    validationMessages.isEmpty()
+    if (validationMessages.nonEmpty) {
+      validationMessages.foreach {m => println(m)}
+      return false
+    }
+
+    true
   }
+
+  override def initialize(initializer: Map[String, String]): Unit = ???
 }
